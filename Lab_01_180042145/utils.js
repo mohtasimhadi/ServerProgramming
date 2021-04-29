@@ -17,3 +17,8 @@ setTimeout(() => {
 }, 5000);
 
 //console.log(HelloFunc);
+
+//there are three types of module in js
+//local module
+//global module
+//3rd party module/package
