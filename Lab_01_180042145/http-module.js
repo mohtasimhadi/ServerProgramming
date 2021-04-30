@@ -25,6 +25,7 @@ const server = http.createServer((req, res) => {
         res.end();
     } else {
         res.write("<h1>This Page Doesn't Exist</h1><br><a href = '/'> Go To Base </a>")
+        res.end();
     }
     //console.log(req);
 });
