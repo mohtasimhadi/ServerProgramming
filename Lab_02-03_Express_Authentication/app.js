@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const userRoutes = require("./routes/userRoutes.routes")
 const logger = require("./middlewares/app.middlewares")
+const mongose = require('mongoose')
 
 app.use(express.static('public'))
 app.use(logger)
