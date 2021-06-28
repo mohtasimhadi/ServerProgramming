@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
 })
 
 router.get("/dashboard", (req, res) => {
-    res.send("<H1>Dashboard</H1>")
+    res.sendFile("index.html", { root: "./views" })
 })
 
 router.get("/login", (req, res) => {
