@@ -9,20 +9,16 @@ const {
     postRegister
 } = require("../controller/authController")
 const bodyParser = require("body-parser")
+const pageNotFound = require("../controller/userController")
+
 
 router.use(bodyParser.urlencoded({ extended: false }))
 
 router.get("/", getHomePage)
 router.get("/dashboard", getDashboard)
-router.get("/login", getLogin)
-router.get("/register", getRegister)
-router.post("/register", postRegister)
-router.post("/login", postLogin)
+router.route("/login").get(getLogin).post(postLogin)
+router.route("/register").get(getRegister).post(postRegister)
 
-router.use((req, res) => {
-    res.send(
-        "<H1>Error 404!</H1><br><H2>Page Doesn't Exist</H2>"
-    )
-})
+router.use(pageNotFound)
 
 module.exports = router
