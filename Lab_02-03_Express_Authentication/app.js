@@ -1,7 +1,9 @@
 const express = require("express")
 const app = express()
 const userRoutes = require("./routes/userRoutes.routes")
+const logger = require("./middlewares/app.middlewares")
 
+app.use(logger)
 app.use(userRoutes)
 
 app.get("/", (req, res) => {
