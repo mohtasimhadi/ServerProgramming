@@ -10,13 +10,8 @@ const postRegister = async(req, res) => {
     const newUser = { fullname: fullname, email: email, password: password }
     console.log(newUser)
 
-    try {
-        await new userSchema(newUser).save()
-        console.log("User Created")
-        res.status(201).json({ newUser })
-    } catch (error) {
-        res.status(404).json({ message: error.message })
-    }
+    const regUser = new userSchema(newUser)
+    regUser.save().then(data => res.json(data)).catch(error => res.json(error))
 }
 
 const getLogin = (req, res) => {
