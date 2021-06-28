@@ -1,21 +1,12 @@
 const express = require("express")
 const app = express()
+const userRoutes = require("./routes/userRoutes.routes")
+
+app.use(userRoutes)
 
 app.get("/", (req, res) => {
     res.send(
         "<H1>Home Page</H1>"
-    )
-})
-
-app.get("/login", (req, res) => {
-    res.send(
-        "<H1>Log In</H1>"
-    )
-})
-
-app.get("/register", (req, res) => {
-    res.send(
-        "<H1>Register</H1>"
     )
 })
 
