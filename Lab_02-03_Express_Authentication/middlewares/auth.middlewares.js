@@ -1,23 +1,27 @@
-const express = require('express')
-const cookieParser = require('cookie-parser')
+const express = require('express');
+const cookieParser = require('cookie-parser');
 
-const app = express()
-app.use(cookieParser())
+const app = express();
+app.use(cookieParser());
 
-var LocalStorage = require('node-localstorage').LocalStorage
-const localstorage = new LocalStorage('./scratch')
+var LocalStorage = require('node-localstorage').LocalStorage;
+const localStorage = new LocalStorage('./scratch');
+const alert = require('alert');
+
 
 const isLoggedIn = (req, res, next) => {
-    const username = localstorage.getItem('username')
 
-    if (username){
-        res.clearCookie('username')
-        res.cookie("username", username)
-        next()
+    const user = localStorage.getItem("fullname");
+
+    if (user) {
+        res.clearCookie('user');
+        res.cookie("user", user);
+        alert('welcome ', user);
+        next();
     } else {
-        alert('Please Log In First')
-        res.redirect("/login")
+        alert('Please log in first');
+        res.redirect('/login');
     }
-}
+};
 
-module.exports = isLoggedIn
+module.exports = isLoggedIn;
