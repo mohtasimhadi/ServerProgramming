@@ -1,11 +1,22 @@
-const isLoggedIn = (req, res, next) => {
-    const username = req.body.username
-    const email = req.body.email
+const express = require('express')
+const cookieParser = require('cookie-parser')
 
-    if (email == "admin@admin.net"){
+const app = express()
+app.use(cookieParser())
+
+var LocalStorage = require('node-localstorage').LocalStorage
+const localstorage = new LocalStorage('./scratch')
+
+const isLoggedIn = (req, res, next) => {
+    const username = localstorage.getItem('username')
+
+    if (username){
+        res.clearCookie('username')
+        res.cookie("username", username)
         next()
     } else {
-        res.redirect("/register")
+        alert('Please Log In First')
+        res.redirect("/login")
     }
 }
 
