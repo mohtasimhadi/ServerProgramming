@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 
 router.get("/login", (req, res) => {
-    res.send("This is login page")
+    res.sendFile("login.html", { root: "./views/users/" })
 })
 
 
