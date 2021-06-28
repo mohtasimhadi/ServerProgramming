@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE-egde"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Registration Page</title>
+    </head>
+    <body>
+        <div class="headline">
+            <h1>Registration Page</h1>
+        </div>
+        <form action="/register" method="POST">
+            <div class="container">
+                <label for="email">Email</label><br>
+                <input type="text" id="email" class="email" placeholder="Enter your email address" required>
+                <br>
+                <label for="name">Name</label><br>
+                <input type="text" id="name" class="name" placeholder="Enter your name" required>
+                <br>
+                <label for="password">Password</label><br>
+                <input type="password" id="password" class="password" placeholder="Enter your password" required><br>
+        
+                <label for="psw_repeat">Repeat Password</label><br>
+                <input type="password" id="psw_repeat" class="psw_repeat" placeholder="Enter your password again" required><br>
+        
+                <p1>Gender</p1>
+                <br><label for="male">Male</label>
+                <br><input type="radio" id="male" class="gender" name="gender" value="Male">
+                <br><label for="female">Female</label>
+                <br><input type="radio" id="female" class="gender" name="gender" value="Female">
+                <br><label for="others">Prefer not to say</label>
+                <br><input type="radio" id="others" class="gender" name="gender" value="Gender">
+            </div>
+        </form>
+    </body>
+</html>
