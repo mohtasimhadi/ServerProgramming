@@ -7,6 +7,8 @@ const getLogin = (req, res) => {
 }
 
 const postLogin = (req, res) => {
+    const {email, password} = req.body
+    console.log(email, password)
 }
 
 const getRegister = (req, res) => {
@@ -19,6 +21,23 @@ const postRegister = (req, res) => {
     console.log(email)
     console.log(password)
     console.log(confpassword)
+
+    const errors = []
+
+    if (!name || !email || !password || !confpassword) {
+        errors.push("All fields are required!")
+    }
+    if (password.length < 6) {
+        errors.push("Passwords must be at least 6 characters!")
+    }
+    if (password != confpassword){
+        errors.push("Passwords didn't match!")
+    }
+    if (errors.length > 0) {
+        console.log(errors)
+    } else {
+        res.redirect("/users/login")
+    }
 }
 
 module.exports = {pageNotFound, getLogin, postLogin, getRegister, postRegister}
