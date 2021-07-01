@@ -8,6 +8,6 @@ app.use(express.static('public'))
 app.set("view engine", "ejs")
 
 app.use(indexRoutes)
-app.use(userRoutes)
+app.use('/users', userRoutes)
 
 module.exports = app
