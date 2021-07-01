@@ -7,7 +7,6 @@ const getLogin = (req, res) => {
 }
 
 const postLogin = (req, res) => {
-    
 }
 
 const getRegister = (req, res) => {
@@ -15,7 +14,11 @@ const getRegister = (req, res) => {
 }
 
 const postRegister = (req, res) => {
-    res.render('users/register.ejs')
+    const {name, email, password, confpassword} = req.body
+    console.log(name)
+    console.log(email)
+    console.log(password)
+    console.log(confpassword)
 }
 
 module.exports = {pageNotFound, getLogin, postLogin, getRegister, postRegister}
