@@ -15,7 +15,6 @@ const isLoggedIn = require("../middlewares/auth.middlewares")
 
 router.use(bodyParser.urlencoded({ extended: false }))
 
-router.get("/", getHomePage)
 router.use('/dashboard', isLoggedIn, getDashboard)
 router.get("/logout", logout)
 router.route("/login").get(getLogin).post(postLogin)
