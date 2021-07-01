@@ -6,7 +6,12 @@ const userRoutes = require("./routes/userRoutes.routes")
 const indexRoutes = require("./routes/index.routes")
 
 app.use(express.static('public'))
-
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUnitialized: true
+}))
+app.use(flash())
 app.use(express.urlencoded({extended: false}))
 
 app.set("view engine", "ejs")
