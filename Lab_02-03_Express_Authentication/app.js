@@ -4,7 +4,10 @@ const userRoutes = require("./routes/userRoutes.routes")
 const indexRoutes = require("./routes/index.routes")
 
 app.use(express.static('public'))
-app.use(userRoutes)
+
+app.set("view engine", "ejs")
+
 app.use(indexRoutes)
+app.use(userRoutes)
 
 module.exports = app
