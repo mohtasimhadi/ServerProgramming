@@ -1,5 +1,6 @@
 const User = require('../models/User.model')
 const bcrypt = require('bcrypt')
+const passport = require('passport')
 
 const pageNotFound = (req, res) => {
     res.send("<H1>Error 404! Page Not Found</H1>")
@@ -10,8 +11,11 @@ const getLogin = (req, res) => {
 }
 
 const postLogin = (req, res) => {
-    const {email, password} = req.body
-    console.log(email, password)
+    passport.authenticate('local', {
+      successRedirect: "/dashboard",
+      failureRedirect: "/users/login",
+      failureFlash: true
+    })
 }
 
 const getRegister = (req, res) => {
