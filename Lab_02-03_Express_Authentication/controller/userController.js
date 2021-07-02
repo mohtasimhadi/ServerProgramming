@@ -10,12 +10,12 @@ const getLogin = (req, res) => {
     res.render('users/login.ejs')
 }
 
-const postLogin = (req, res) => {
+const postLogin = (req, res, next) => {
     passport.authenticate('local', {
       successRedirect: "/dashboard",
       failureRedirect: "/users/login",
       failureFlash: true
-    })
+    })(req, res, next)
 }
 
 const getRegister = (req, res) => {
