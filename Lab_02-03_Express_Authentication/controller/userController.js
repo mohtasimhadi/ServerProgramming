@@ -1,3 +1,6 @@
+const User = require('../models/User.model')
+const bcrypt = require('bcrypt')
+
 const pageNotFound = (req, res) => {
     res.send("<H1>Error 404! Page Not Found</H1>")
 }
@@ -17,10 +20,6 @@ const getRegister = (req, res) => {
 
 const postRegister = (req, res) => {
     const {name, email, password, confpassword} = req.body
-    console.log(name)
-    console.log(email)
-    console.log(password)
-    console.log(confpassword)
 
     const errors = []
 
@@ -34,11 +33,50 @@ const postRegister = (req, res) => {
         errors.push("Passwords didn't match!")
     }
     if (errors.length > 0) {
-        req.flash("errors", errors)
-        res.redirect("/users/register")
-    } else {
-        res.redirect("/users/login")
+        req.flash("errors", errors);
+        res.redirect("/users/register");
+      } else {
+        //Create New User
+        User.findOne({ email: email }).then((user) => {
+          if (user) {
+            errors.push("User already exists with this email!")
+            req.flash("errors", errors)
+            res.redirect("/users/register")
+          } else {
+            bcrypt.genSalt(10, (err, salt) => {
+              if (err) {
+                errors.push(err)
+                req.flash("errors", errors)
+                res.redirect("/users/register")
+              } else {
+                bcrypt.hash(password, salt, (err, hash) => {
+                  if (err) {
+                    errors.push(err)
+                    req.flash("errors", errors)
+                    res.redirect("/users/register")
+                  } else {
+                    const newUser = new User({
+                      name,
+                      email,
+                      password: hash,
+                    });
+                    newUser
+                      .save()
+                      .then(() => {
+                        res.redirect("/users/login")
+                      })
+                      .catch(() => {
+                        errors.push("Saving User to the daatabase failed!")
+                        req.flash("errors", errors)
+                        res.redirect("/users/register")
+                      })
+                  }
+                })
+              }
+            })
+          }
+        })
+      }
     }
-}
 
 module.exports = {pageNotFound, getLogin, postLogin, getRegister, postRegister}
