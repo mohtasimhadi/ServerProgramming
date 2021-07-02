@@ -4,12 +4,14 @@ const {
     getLogin,
     getRegister,
     postLogin,
-    postRegister
+    postRegister,
+    getLogout
 } = require("../controller/userController")
 
 router.get('/login', getLogin)
 router.post('/login', postLogin)
 router.get('/register', getRegister)
 router.post('/register', postRegister)
+router.get('/logout', getLogout)
 
 module.exports = router

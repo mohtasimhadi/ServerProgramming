@@ -2,10 +2,6 @@ const User = require('../models/User.model')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 
-const pageNotFound = (req, res) => {
-    res.send("<H1>Error 404! Page Not Found</H1>")
-}
-
 const getLogin = (req, res) => {
     res.render('users/login.ejs')
 }
@@ -83,4 +79,9 @@ const postRegister = (req, res) => {
       }
     }
 
-module.exports = {pageNotFound, getLogin, postLogin, getRegister, postRegister}
+const getLogout = (req, res) => {
+  req.logout()
+  res.redirect('/')
+}
+
+module.exports = {getLogin, postLogin, getRegister, postRegister, getLogout}
