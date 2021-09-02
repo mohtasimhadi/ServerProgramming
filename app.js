@@ -5,6 +5,7 @@ const session = require("express-session")
 const flash = require("connect-flash")
 const userRoutes = require("./routes/userRoutes.routes")
 const indexRoutes = require("./routes/index.routes")
+const MORoutes = require("./routes/MathOlympiad.routes")
 const moongose = require("mongoose")
 const passport = require('passport')
 
@@ -25,11 +26,16 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
+
+//Body Parser
 app.use(express.urlencoded({extended: false}))
+
+//Routes
 
 app.set("view engine", "ejs")
 
 app.use(indexRoutes)
 app.use('/users', userRoutes)
+app.use('/MathOlympiad', MORoutes)
 
 module.exports = app
