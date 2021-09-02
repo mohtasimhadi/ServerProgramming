@@ -31,9 +31,7 @@ app.use(flash())
 app.use(express.urlencoded({extended: false}))
 
 //Routes
-
 app.set("view engine", "ejs")
-
 app.use(indexRoutes)
 app.use('/users', userRoutes)
 app.use('/MathOlympiad', MORoutes)
