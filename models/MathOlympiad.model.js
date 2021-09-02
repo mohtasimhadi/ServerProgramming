@@ -4,6 +4,10 @@
          type: String,
          required: true
     },
+    registerID: {
+        type: Number,
+        required: true,
+    },
      category:{
         type: String,
         required: true
