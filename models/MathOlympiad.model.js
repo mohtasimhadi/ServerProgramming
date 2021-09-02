@@ -3,10 +3,18 @@
      name:{
          type: String,
          required: true
-     },
+    },
+    registerID: {
+        type: Number,
+        required: true,
+    },
      category:{
         type: String,
         required: true
+    },
+    contact: {
+        type: String,
+        required: true,
     },
     email:{
         type: String,
