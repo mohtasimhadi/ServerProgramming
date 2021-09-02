@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
-const { ensureAuthenticated, addUserData} = require("../middlewares/auth.middleware")
-const { getMO, postMO, getMOList, deleteMO, paymentDoneMO, selectMO, getEditMO, postEditMO} = require("../controllers/mathOlympiad.controller")
+const { ensureAuthenticated, addUserData} = require("../middlewares/auth.middlewares")
+const { getMO, postMO, getMOList, deleteMO, paymentDoneMO, selectMO, getEditMO, postEditMO} = require("../controller/mathOlympiad.controller")
 
 router.get("/register", ensureAuthenticated, addUserData, getMO)
 router.post("/register", ensureAuthenticated, addUserData, postMO)

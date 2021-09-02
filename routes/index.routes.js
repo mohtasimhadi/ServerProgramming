@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
 })
 
 router.get("/dashboard", ensureAuthenticated, addUserData, (req, res) => {
-    res.render("dashboard.ejs")
+    res.render("dashboard.ejs", {user: req.user})
 })
 
 module.exports = router

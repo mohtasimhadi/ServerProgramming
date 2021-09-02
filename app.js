@@ -1,39 +1,57 @@
-require('dotenv').config()
+require("dotenv").config()
 const express = require("express")
 const app = express()
 const session = require("express-session")
 const flash = require("connect-flash")
-const userRoutes = require("./routes/userRoutes.routes")
-const indexRoutes = require("./routes/index.routes")
-const MORoutes = require("./routes/MathOlympiad.routes")
-const moongose = require("mongoose")
-const passport = require('passport')
+const mongoose = require("mongoose")
+const passport = require("passport")
+const { connect } = require("mongoose")
 
-require('./config/passport')(passport)
+// Passport Strategy
+require("./config/passport")(passport)
 
-moongose.connect(process.env.MongoURI, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
-    console.log("Connected to DB")
-}).catch((error) => {
-    console.log(error)
-})
+// Connect to DB
+mongoose
+    .connect(process.env.MongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {
+        console.log("Connected to MongoDB!")
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 
-app.use(express.static('public'))
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUnitialized: true
-}))
+// Static Resources
+app.use(express.static("public"))
+
+// View Engine
+app.set("view engine", "ejs")
+
+// Session and Flash
+app.use(
+    session({
+        secret: "secret",
+        resave: true,
+        saveUninitialized: true,
+    })
+);
+
+app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(flash())
 
-//Body Parser
-app.use(express.urlencoded({extended: false}))
+// Body Parser
+app.use(express.urlencoded({ extended: false }))
 
-//Routes
-app.set("view engine", "ejs")
+// Routes
+const indexRoutes = require("./routes/index.routes")
+const userRoutes = require("./routes/userRoutes.routes")
+const MORoutes = require("./routes/mathOlympiad.routes")
+
 app.use(indexRoutes)
-app.use('/users', userRoutes)
-app.use('/MathOlympiad', MORoutes)
+app.use("/users", userRoutes)
+app.use("/MathOlympiad", MORoutes)
 
 module.exports = app
