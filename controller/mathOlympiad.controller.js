@@ -49,15 +49,13 @@ const postMO = (req, res) => {
 const getMOList = (req, res) => {
     let all_participant = []
     let error = ""
-    MathOlympiad.find()
-        .then((data) => {
+    MathOlympiad.find().then((data) => {
             all_participant = data;
             res.render("math-olympiad/list.ejs", {
                 error: req.flash("error"),
                 participants: all_participant,
             })
-        })
-        .catch(() => {
+        }).catch(() => {
             error = "Failed to retrieve data!"
             res.render("math-olympiad/list.ejs", {
                 error: req.flash("error", error),
@@ -79,4 +77,29 @@ const deleteMO = (req, res) => {
         })
 }
 
-module.exports = {getMO, postMO, getMOList, deleteMO}
+const paymentDoneMO = (req, res) => {
+    const id = req.params.id
+    MathOlympiad.findOne({ _id: id })
+        .then((participant) => {
+            participant.paid = participant.total
+            participant
+                .save()
+                .then(() => {
+                    let error = "Payment completed successfully!"
+                    req.flash("error", error)
+                    res.redirect("/MathOlympiad/list")
+                })
+                .catch(() => {
+                    let error = "Data could not be updated!"
+                    req.flash("error", error)
+                    res.redirect("/MathOlympiad/list")
+                })
+        })
+        .catch(() => {
+            let error = "Data could not be updated!"
+            req.flash("error", error)
+            res.redirect("/MathOlympiad/list")
+        })
+}
+
+module.exports = {getMO, postMO, getMOList, deleteMO, paymentDoneMO}
