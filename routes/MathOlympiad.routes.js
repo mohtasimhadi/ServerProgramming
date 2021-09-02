@@ -6,5 +6,6 @@ const {getMO, postMO, getMOList, deleteMO} = require('../controller/mathOlympiad
 router.get('/register', ensureAuthenticated, addUserData, getMO)
 router.post('/register', ensureAuthenticated, addUserData, postMO)
 router.get('/list', ensureAuthenticated, addUserData, getMOList)
+router.get('/delete/:id', ensureAuthenticated, addUserData, deleteMO)
 
 module.exports = router
