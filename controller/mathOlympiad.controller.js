@@ -102,4 +102,71 @@ const paymentDoneMO = (req, res) => {
         })
 }
 
-module.exports = {getMO, postMO, getMOList, deleteMO, paymentDoneMO}
+const selectMO = (req, res) => {
+    const id = req.params.id
+    MathOlympiad.findOne({ _id: id })
+        .then((participant) => {
+            participant.selected = true
+            participant
+                .save()
+                .then(() => {
+                    let error = "Participant has been selected successfully!"
+                    req.flash("error", error);
+                    res.redirect("/MathOlympiad/list")
+                })
+                .catch(() => {
+                    let error = "Data could not be updated!"
+                    req.flash("error", error);
+                    res.redirect("/MathOlympiad/list")
+                });
+        })
+        .catch(() => {
+            let error = "Data could not be updated!"
+            req.flash("error", error)
+            res.redirect("/MathOlympiad/list")
+        })
+}
+
+const getEditMO = (req, res) => {
+    const id = req.params.id
+    let info = []
+    MathOlympiad.findOne({ _id: id })
+        .then((data) => {
+            info = data
+            res.render("math-olympiad/editParticipant.ejs", {
+                error: req.flash("error"),
+                participant: info,
+            })
+        })
+        .catch((e) => {
+            console.log(e)
+            error = "Failed to fetch participants";
+            res.render("math-olympiad/editParticipant.ejs", {
+                error: req.flash("error", error),
+                participant: info,
+            })
+        })
+}
+
+const postEditMO = async (req, res) => {
+    let registrationFee = 0
+    const { name, contact, category, email, institution, tshirt } = req.body
+    if (category == "School") {
+        registrationFee = 250
+    } else if (category == "College") {
+        registrationFee = 400
+    } else if (category == "University") {
+        registrationFee = 500
+    }
+    const total = registrationFee
+    const data = await MathOlympiad.findOneAndUpdate(
+        { name: name, contact: contact },
+        { category, email, institution, tshirt, total }
+    );
+    if (data) {
+        console.log("findOneAndUpdate ", data)
+        res.redirect("/MathOlympiad/list")
+    }
+}
+
+module.exports = {getMO, postMO, getMOList, deleteMO, paymentDoneMO, selectMO, postEditMO, getEditMO}
