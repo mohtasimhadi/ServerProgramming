@@ -148,12 +148,16 @@ const getEditMO = (req, res) => {
 const postEditMO = async (req, res) => {
     let registrationFee = 0
     const { name, contact, category, email, institution, tshirt } = req.body
-    if (category == "School") {
-        registrationFee = 250
-    } else if (category == "College") {
-        registrationFee = 400
-    } else if (category == "University") {
-        registrationFee = 500
+    switch(category){
+        case "School":
+            registrationFee = 250
+            break
+        case "College":
+            registrationFee = 400
+            break
+        default:
+            registrationFee = 500
+            break
     }
     const total = registrationFee
     const data = await MathOlympiad.findOneAndUpdate({ name: name, contact: contact }, { category, email, institution, tshirt, total })
