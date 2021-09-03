@@ -5,7 +5,7 @@
          required: true
     },
     registerID: {
-        type: Number,
+        type: String,
         required: true,
     },
      category:{

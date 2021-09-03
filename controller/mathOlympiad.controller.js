@@ -1,19 +1,19 @@
 const MathOlympiad = require("../models/MathOlympiad.model")
 const sendMail = require("./sendMail.controller.js")
+const crypto = require('crypto')
 
-let moRegID = 202100
+let moRegID = crypto.randomBytes(20).toString('hex')
 
 const getRegisterID = () => {
     MathOlympiad.findOne({ registerID: moRegID }).then((participant) => {
         if (participant) {
-            moRegID++ 
-            getRegisterID() 
+            moRegID = crypto.randomBytes(20).toString('hex')
+            getRegisterID()
         }
     }) 
 } 
 
 const getMO = (req, res) => {
-    getRegisterID() 
     res.render("math-olympiad/register.ejs", { error: req.flash("error") })
 } 
 
