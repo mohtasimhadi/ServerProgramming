@@ -36,9 +36,9 @@ async function sendMail(email, verficationCode) {
             subject: "Registration Code",
             text: vfCode,
             html:
-                " <b>Hi!<br> <p> You have successfully registered to ICT Fest 2021<h4>Registration code<b> :</h4><h1><t>" +
+                " <b>Congratulations!<br> <p> You have been selected to participate in ICT Fest 2021.<h4>Registration code<b> :</h4><h1><t>" +
                 vfCode +
-                "</h1> <t><br><p>ICT FEST Comittee</p><br><p>Best Wishes</p></b.",
+                "</h1> <t><br><p>ICT FEST Comittee</p><br><p>Best Wishes</p></b>",
         } 
         const result = await transport.sendMail(mailOptions) 
         return result 

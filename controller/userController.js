@@ -33,8 +33,8 @@ const postRegister = (req, res) => {
     errors.push("Passwords didn't match!")
   }
   if (errors.length > 0) {
-    req.flash("errors", errors);
-    res.redirect("/users/register");
+    req.flash("errors", errors) 
+    res.redirect("/users/register") 
   } else {
     //Create New User
     User.findOne({ email: email }).then((user) => {
@@ -59,7 +59,7 @@ const postRegister = (req, res) => {
                   name,
                   email,
                   password: hash,
-                });
+                }) 
                 newUser.save().then(() => {
                     res.redirect("/users/login")
                   }).catch(() => {
