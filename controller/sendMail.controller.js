@@ -10,7 +10,7 @@ const authentication = new google.auth.OAuth2(ClientID,ClientSecret,RedirectURL)
 
 authentication.setCredentials({ refresh_token: RefreshToken }) 
 
-async function sendMail(email, verficationCode) {
+async function sendMail(email, verficationCode, contest, name) {
     try {
         vfCode = verficationCode.toString() 
         console.log(verficationCode) 
@@ -33,12 +33,10 @@ async function sendMail(email, verficationCode) {
         const mailOptions = {
             from: "ICT Fest 2021<mohtasimhadi@iut-dhaka.edu>",
             to: email,
-            subject: "Registration Code",
+            subject: "ICT Fest 2021: "+contest+" - Registration Successful!",
             text: vfCode,
-            html:
-                " <b>Congratulations!<br> <p> You have been selected to participate in ICT Fest 2021.<h4>Registration code<b> :</h4><h1><t>" +
-                vfCode +
-                "</h1> <t><br><p>ICT FEST Comittee</p><br><p>Best Wishes</p></b>",
+            text: `Congratulations ${name}!,
+                You have successfully registered to IUT ICT Fest Math Olympiad! Your confirmation code is ${vfCode}`
         } 
         const result = await transport.sendMail(mailOptions) 
         return result 

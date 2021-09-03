@@ -50,7 +50,7 @@ const postMO = (req, res) => {
             } else {
                 const participant = new MathOlympiad({ name, registerID, category, contact, email, institution, paid, total, selected, tshirt }) 
                 participant.save().then(() => {
-                    sendMail(email, registerID)
+                    sendMail(email, registerID, "Math Olympiad", name)
                     console.log(registerID)
                     error = "Participant has been registered successfully!"
                     req.flash("error", error)

@@ -38,7 +38,7 @@ const postPC = (req, res) => {
         } else {
             const programmingTeam = new ProgrammingContest({ teamName, registerID, institutionName, coachName, coachContact, coachEmail, coachTshirt, leaderName, leaderContact, leaderEmail, leaderTshirt, member1Name, member1Contact, member1Email, member1Tshirt, member2Name, member2Contact, member2Email, member2Tshirt, total, paid, selected, })
             programmingTeam.save().then(() => {
-                sendMail(coachEmail, registerID)
+                sendMail(coachEmail, registerID, "Programming Contest", teamName)
                 console.log(registerID)
                 error = "Team has been registered successfully!"
                 req.flash("error", error)
