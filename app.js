@@ -5,7 +5,6 @@ const session = require("express-session")
 const flash = require("connect-flash")
 const mongoose = require("mongoose")
 const passport = require("passport")
-const { connect } = require("mongoose")
 
 // Passport Strategy
 require("./config/passport")(passport)
@@ -49,9 +48,11 @@ app.use(express.urlencoded({ extended: false }))
 const indexRoutes = require("./routes/index.routes")
 const userRoutes = require("./routes/userRoutes.routes")
 const MORoutes = require("./routes/mathOlympiad.routes")
+const PCRoutes = require("./routes/ProgrammingContest.routes")
 
 app.use(indexRoutes)
 app.use("/users", userRoutes)
 app.use("/MathOlympiad", MORoutes)
+app.use("/ProgrammingContest", PCRoutes)
 
 module.exports = app

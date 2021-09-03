@@ -1,19 +1,8 @@
-const express = require("express");
-const router = express.Router();
+const express = require("express")
+const router = express.Router()
 
-const {
-    ensureAuthenticated,
-    addUserData,
-} = require("../middlewares/auth.middleware");
-
-const {
-    getPC,
-    postPC,
-    getPCList,
-    deletePC,
-    paymentDonePC,
-    selectPC,
-} = require("../controllers/programmingContest.controller");
+const { ensureAuthenticated, addUserData, } = require("../middlewares/auth.middlewares")
+const { getPC, postPC, getPCList, deletePC, paymentDonePC, selectPC, } = require("../controller/programmingContest.controller")
 
 router.get("/register", ensureAuthenticated, addUserData, getPC)
 router.post("/register", ensureAuthenticated, addUserData, postPC)
