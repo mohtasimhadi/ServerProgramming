@@ -1,12 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const {
-    getLogin,
-    getRegister,
-    postLogin,
-    postRegister,
-    getLogout
-} = require("../controller/userController")
+const { getLogin, getRegister, postLogin, postRegister, getLogout } = require("../controller/userController")
 
 router.get('/login', getLogin)
 router.post('/login', postLogin)
